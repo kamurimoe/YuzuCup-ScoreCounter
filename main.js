@@ -19,7 +19,8 @@ const createWindow = () => {
         }
     })
 
-    win.loadURL('http://localhost:5173')
+    const promise = win.loadURL('http://localhost:5173')
+    console.log(promise)
     win.webContents.openDevTools()
     winState.manage(win)
 }

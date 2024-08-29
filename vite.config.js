@@ -6,8 +6,5 @@ export default defineConfig({
     plugins: [vue()],
     server: {
         port: 5173
-    },
-    build: {
-        sourcemap: true
     }
 })
