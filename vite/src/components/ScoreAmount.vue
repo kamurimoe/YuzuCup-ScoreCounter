@@ -59,7 +59,7 @@ const countTotalScoreProcess = () => {
             <el-tree-select v-model="field_buff_value" :data="tree_data[col.name]" multiple filterable
                             :render-after-expand="false">
               <template #label="label">
-                <el-tooltip v-for="item in tree_data[col.name]" :content="label.label" placement="left">
+                <el-tooltip :content="label.label" placement="left">
                   {{ label.label }}
                 </el-tooltip>
               </template>
@@ -69,7 +69,7 @@ const countTotalScoreProcess = () => {
             <el-tree-select v-model="scope.row.buffs" :data="tree_data[col.name]" multiple filterable
                             :render-after-expand="false">
               <template #label="label">
-                <el-tooltip v-for="item in tree_data[col.name]" :content="label.label" placement="left">
+                <el-tooltip :content="label.label" placement="left">
                   {{ label.label }}
                 </el-tooltip>
               </template>

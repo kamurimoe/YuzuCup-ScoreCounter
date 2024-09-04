@@ -20,9 +20,7 @@ const switchLoginStatus = async (code) => {
   })
 
 }
-// onMounted(()=>{
-//   switchLoginStatus(true)
-// })
+
 </script>
 
 <template>

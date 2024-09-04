@@ -1,6 +1,5 @@
 import axios from "axios";
 import {COM_POINT} from "../../../global.config.js";
-import {inject} from "vue";
 
 export const ajaxGet = (url, params) => {
     return axios

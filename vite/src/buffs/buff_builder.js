@@ -6,7 +6,7 @@ export const tiles_zh = {
 }
 export const tiles2zh = (tiles = []) => {
     const result = [];
-    tiles.forEach((tile, i) =>
+    tiles.forEach(tile =>
         result.push(tile[1] === 'z' ? tiles_zh.z[tile] :
             (tile[0] === '0' ? tiles_zh.s["0"] : tile[0]) + tiles_zh.s[tile[1]]))
     return result

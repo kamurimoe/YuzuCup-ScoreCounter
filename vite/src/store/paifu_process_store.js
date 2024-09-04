@@ -31,7 +31,7 @@ export const paifuProcess = {
     buildActions() {
         for (let action of this.actions) {
             if (action.type === 1) {
-                this.field_buffs_objects.forEach((item) => {
+                this.field_buffs_objects.forEach(item => {
                     item.actionAnalyze(action)
                 })
                 this.personal_buffs_objects.forEach((item) => {

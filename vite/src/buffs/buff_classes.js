@@ -31,7 +31,7 @@ export class Buff {
         return this[action.result.name](action);
     }
 
-    '.lq.RecordNewRound'(action) {
+    '.lq.RecordNewRound'() {
         this.recordRound();
     }
 
@@ -77,7 +77,7 @@ export class HuleHandTilesSeries extends Buff {
     }
 
     addByHandTails(hand_tiles = [], seat = 3) {
-        this.add_round(hand_tiles.filter((tile) =>
+        this.add_round(hand_tiles.filter(tile =>
             this.hule_tiles.includes(tile)).length * this.single_bonus, seat);
     }
 
