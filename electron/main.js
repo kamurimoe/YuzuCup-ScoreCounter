@@ -1,12 +1,7 @@
-const {app, BrowserWindow} = require('electron')
-const path = require('path')
-const WinState = require('electron-win-state').default
-try {
-    require('electron-reloader')(module)
-} catch {
-}
-
-
+import {app, BrowserWindow} from 'electron'
+import {PATHs,COM_POINT} from "../global.config.js";
+import Win_State from "electron-win-state";
+const WinState = Win_State.default
 const createWindow = () => {
     const winState = new WinState({
         defaultWidth: 1000,
@@ -15,12 +10,11 @@ const createWindow = () => {
     const win = new BrowserWindow({
         ...winState.winOptions,
         webPreferences: {
-            preload: path.resolve(__dirname, './preload/index.js')
+            preload: PATHs.PRELOAD_PATH
         }
     })
 
-    const promise = win.loadURL('http://localhost:5173')
-    console.log(promise)
+    win.loadURL(`${COM_POINT.IP}:${COM_POINT.VITE_PORT}`)
     win.webContents.openDevTools()
     winState.manage(win)
 }
