@@ -1,6 +1,6 @@
 name: Build/release
 
-on: push
+on: [ push,workflow_dispatch ]
 
 jobs:
   release:
@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [ windows-latest,macos-latest, ubuntu-latest ]
 
     steps:
       - name: Check out Git repository
@@ -19,11 +19,13 @@ jobs:
         with:
           node-version: 20.17.0
 
+      - name: Install vite
+        run: npm install -g vite
+
       - name: Build/release Electron app
         uses: paneron/action-electron-builder@v1.8.1
         with:
-          # GitHub token, automatically provided to the action
-          # (No need to define this secret in the repo settings)
+          package_manager: npm
           github_token: ${{ secrets.YCSC_builder }}
 
           # If the commit is tagged with a version (e.g. "v1.0.0"),
