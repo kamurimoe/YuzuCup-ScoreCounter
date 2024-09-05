@@ -1,36 +1,38 @@
 {
-  "name": "yuzucup-scorecounter",
+  "name": "YuzuCup-ScoreCounter",
   "private": true,
   "version": "0.0.0",
   "main": "electron/main.js",
   "type": "module",
+  "build": {
+    "appId": "com.yuzucup.scorecounter"
+  },
   "scripts": {
     "vite": "vite --config ./vite/vite.config.js",
-    "build": "",
+    "build": "vite build --config ./vite/vite.config.js --outDir ./dist-vite && electron-builder",
     "preview": "vite preview",
     "electron": "electron .",
     "electron_debug": "electron --inspect-brk=9229 .",
     "launch_server": "nodemon --watch server --watch config server/server.js",
-    "start": "concurrently vite \"nodemon --watch server --watch config server/server.js\" \"electron .\""
+    "start": "concurrently \"vite --config ./vite/vite.config.js\" \"nodemon --watch server --watch config server/server.js\" \"electron .\""
   },
   "dependencies": {
     "axios": "^1.7.5",
-    "concurrently": "^8.2.2",
     "crypto-js": "^4.2.0",
-    "electron-reloader": "^1.2.3",
     "electron-win-state": "^1.1.22",
     "element-plus": "^2.8.1",
     "express": "^4.19.2",
-    "got": "^14.4.2",
     "lodash": "^4.17.21",
-    "nodemon": "^3.1.4",
     "protobufjs": "^7.4.0",
     "uuid": "^10.0.0",
     "vue": "^3.4.37",
     "ws": "^8.18.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.1.2",
+    "nodemon": "^3.1.4",
+    "electron-builder": "^25.0.5",
+    "concurrently": "^8.2.2",
+    "@vitejs/plugin-vue": "^5.1.3",
     "electron": "32.0.1",
     "vite": "^5.4.1"
   }
