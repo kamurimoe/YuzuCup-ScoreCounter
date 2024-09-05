@@ -8,25 +8,29 @@ jobs:
 
     strategy:
       matrix:
-        os: [ windows-latest,macos-latest, ubuntu-latest ]
+        os: [ windows-latest, ubuntu-latest,macos-latest ]
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v1
         with:
           node-version: 20.17.0
 
-      - name: Install vite
-        run: npm install -g vite
+      - name: Install vite 1
+        run: npm install --save-dev vite@v5.4.1 electron-builder
+
+      - name: run vite build
+        run: npm run vitebuild
 
       - name: Build/release Electron app
         uses: paneron/action-electron-builder@v1.8.1
         with:
+          package_root: .
           package_manager: npm
-          github_token: ${{ secrets.YCSC_builder }}
+          github_token: ${{ secrets.YCSC_BUILDER }}
 
           # If the commit is tagged with a version (e.g. "v1.0.0"),
           # release the app after building

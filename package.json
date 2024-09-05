@@ -1,16 +1,17 @@
 {
   "name": "YuzuCup-ScoreCounter",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "electron/main.js",
   "type": "module",
   "build": {
     "appId": "com.yuzucup.scorecounter"
   },
   "scripts": {
-    "vite": "vite --config ./vite/vite.config.js",
-    "build": "vite build --config vite/vite.config.js --outDir dist-vite && electron-builder",
-    "preview": "vite preview",
+    "vite": "vite --config vite/vite.config.js",
+    "build": "electron-builder",
+    "vitebuild": "vite build --config vite/vite.config.js --outDir dist-vite",
+    "build_app": "vite build --config vite/vite.config.js --outDir dist-vite && electron-builder",
     "electron": "electron .",
     "electron_debug": "electron --inspect-brk=9229 .",
     "launch_server": "nodemon --watch server --watch config server/server.js",
