@@ -1,7 +1,8 @@
-import {app, BrowserWindow,dialog } from 'electron'
-import {PATHs,COM_POINT} from "../global.config.js";
+import {app, BrowserWindow, dialog} from 'electron'
+import {COM_POINT, PATHs} from "../global.config.js";
 import Win_State from "electron-win-state";
 import {runServer} from "../server/server.js"
+
 const WinState = Win_State.default
 
 const createWindow = () => {
@@ -16,13 +17,17 @@ const createWindow = () => {
         }
     })
 
-    win.loadURL(`${COM_POINT.IP}:${COM_POINT.VITE_PORT}`)
-    // win.webContents.openDevTools()
+    if (app.isPackaged) {
+        win.loadURL(PATHs.VITE_BUILD_INDEX_PATH)
+    } else {
+        win.loadURL(`${COM_POINT.IP}:${COM_POINT.VITE_PORT}`)
+        win.webContents.openDevTools()
+    }
     winState.manage(win)
 
 
 }
-function showErrorDialog(message) {
+const showErrorDialog = (message) => {
     dialog.showMessageBox({
         type: 'error',
         title: '错误',
