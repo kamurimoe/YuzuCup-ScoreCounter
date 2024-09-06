@@ -1,5 +1,5 @@
 import express from 'express'
-import {COM_POINT, DIRs, PATHs} from '../global.config.js'
+import {COM_POINT, DIRs} from '../global.config.js'
 import MajSoulWS from "./maj_soul/maj_soul_ws.js";
 import {read_json, save_json} from './utils/json_rw.js'
 
@@ -24,7 +24,7 @@ maj_soul_wsc.initJson().then(() => {
         save_json(version_json, DIRs.FILE_SAVE_DIR, 'info.json')
     }
 })
-app.use("/",express.static(DIRs.VITE_BUILD_INDEX_DIR))
+
 
 app.post('/api/connect', (req, res) => {
     const {code, userInfo} = req.body

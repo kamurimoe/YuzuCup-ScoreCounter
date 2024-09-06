@@ -1,5 +1,5 @@
 <script setup>
-import {reactive, ref} from "vue";
+import {computed, reactive, ref} from "vue";
 import {paifuInfo} from "@/store/paifu_info_store.js";
 import {buffTreeData} from "../buffs/buff_tree_data.js";
 import {paifuProcess} from "../store/paifu_process_store.js";
@@ -13,6 +13,7 @@ const cols = reactive([
   {name: 'personal_buff_score', label: '个人赋分', width: '10'},
   {name: 'total_score', label: '总分', width: '8'}
 ])
+const treeSelect = ref(null)
 const info_data = paifuInfo.data
 const tree_data = buffTreeData.data
 const score_list = ref({field_buff_score: {}, personal_buff_score: {}, total_score: {}})
@@ -26,8 +27,12 @@ const objectSpanMethod = ({column, rowIndex,}) =>
 const countTotalScoreProcess = () => {
   paifuProcess.buildBuffs(field_buff_value.value, info_data.overview_points)
   score_list.value = {...paifuProcess.buildActions()}
-  console.log(score_list)
+
+  // console.log(score_list)
 }
+const getNode = (id) => {
+  return treeSelect.value[0].getNode(id)};
+
 </script>
 
 <template>
@@ -49,15 +54,16 @@ const countTotalScoreProcess = () => {
             inactive-text="总计得分"
         />
       </template>
-      <el-table border size="large" :data="info_data.overview_points" :span-method="objectSpanMethod">
+      <el-table border height="480" size="default" :data="info_data.overview_points" :span-method="objectSpanMethod">
         <el-table-column sortable align="center" v-for="col in cols" :prop=col.name :label=col.label
                          :min-width="col.width">
           <template #default="scope" v-if="['player','point'].includes(col.name)">
             {{ scope.row[scope.column.property] }}
           </template>
           <template #default="scope" v-else-if="col.name==='field_buff'">
-            <el-tree-select v-model="field_buff_value" :data="tree_data[col.name]" multiple filterable
+            <el-tree-select ref="treeSelect" v-model="field_buff_value" :data="tree_data[col.name]" multiple filterable
                             :render-after-expand="false">
+
               <template #label="label">
                 <el-tooltip :content="label.label" placement="left">
                   {{ label.label }}
@@ -76,26 +82,22 @@ const countTotalScoreProcess = () => {
             </el-tree-select>
           </template>
           <template #default="scope" v-else-if="col.name==='total_score'">
-            <el-tooltip content="" placement="right">
-              <el-text @click="console.log(scope)">
-                {{score_list[col.name][scope.row.seat]+scope.row.point}}
-              </el-text>
-            </el-tooltip>
+            <el-text>
+              {{ score_list[col.name][scope.row.seat] + scope.row.point }}
+            </el-text>
           </template>
           <template #default="scope" v-else>
             <el-divider></el-divider>
             <div v-for="(buff,i) in score_list[col.name][col.name==='field_buff_score'?0:scope.row.account_id]">
-              {{ `buff${i + 1}` }}
-              <el-tooltip v-if="detail_mode" v-for="(round,j) in buff.detail" content="" placement="left">
-                <el-text class="table-score-text">
-                  {{ `第${j + 1}局:${round[scope.row.seat]}` }}
-                </el-text>
+              <el-tooltip :content="buff.info.desc" placement="top">
+                {{ `buff~${buff.info.id}` }}
               </el-tooltip>
-              <el-tooltip v-else content="" placement="top">
-                <el-text class="table-score-text">
-                  {{ buff.sum[scope.row.seat] }}
-                </el-text>
-              </el-tooltip>
+              <el-text v-if="detail_mode" v-for="(round,j) in buff.detail" class="table-score-text">
+                {{ `第${j + 1}局:${round[scope.row.seat]}` }}
+              </el-text>
+              <el-text v-else class="table-score-text">
+                {{ buff.sum[scope.row.seat] }}
+              </el-text>
               <el-divider></el-divider>
             </div>
           </template>

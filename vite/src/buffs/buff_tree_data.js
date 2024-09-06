@@ -12,7 +12,7 @@ export const buffTreeData = {
             const personal_series_node = []
             series.forEach((style, style_id) => {
                 const style_node = []
-                style.params.forEach((buff, buff_id) => {
+                style.args.forEach((buff, buff_id) => {
                     style_node.push({
                         value: `${series_id}-${style_id}-${buff_id}`,
                         label: style.desc(buff),

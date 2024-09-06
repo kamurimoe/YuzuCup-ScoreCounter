@@ -9,16 +9,14 @@ provide('appContext', appContext)
 
 <template>
   <el-container  class="app-container">
-    <el-aside width="10%">
+    <el-aside width="150px">
       <el-scrollbar>
         <Aside/>
       </el-scrollbar>
     </el-aside>
     <el-container>
       <el-main>
-        <el-scrollbar>
-      <Main/>
-        </el-scrollbar>
+          <Main/>
       </el-main>
     </el-container>
   </el-container>
