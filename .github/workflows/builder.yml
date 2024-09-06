@@ -19,11 +19,15 @@ jobs:
         with:
           node-version: 20.17.0
 
-      - name: Install vite 1
+      - name: Install snapcraft
+        run: |
+          sudo apt install snap
+          sudo snap install snapcraft --classic
+        if: runner.os == 'Linux'
+
+      - name: Install vite electron-builder
         run: npm install --save-dev vite@v5.4.1 electron-builder
 
-      - name: run vite build
-        run: npm run vitebuild
 
       - name: Build/release Electron app
         uses: paneron/action-electron-builder@v1.8.1

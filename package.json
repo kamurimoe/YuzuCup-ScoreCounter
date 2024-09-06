@@ -5,12 +5,26 @@
   "main": "electron/main.js",
   "type": "module",
   "build": {
-    "appId": "com.yuzucup.scorecounter"
+    "appId": "com.yuzucup.scorecounter",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
   },
   "scripts": {
     "vite": "vite --config vite/vite.config.js",
-    "build": "electron-builder",
-    "vitebuild": "vite build --config vite/vite.config.js --outDir dist-vite",
+    "build": "vite build --config vite/vite.config.js --outDir dist-vite",
+    "build_electron": "electron-builder",
     "build_app": "vite build --config vite/vite.config.js --outDir dist-vite && electron-builder",
     "electron": "electron .",
     "electron_debug": "electron --inspect-brk=9229 .",
